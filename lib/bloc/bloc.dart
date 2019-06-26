@@ -1,3 +1,3 @@
-export 'counter_bloc.dart';
-export 'counter_event.dart';
-export 'counter_state.dart';
+export 'movies_bloc.dart';
+export 'movies_event.dart';
+export 'movies_state.dart';

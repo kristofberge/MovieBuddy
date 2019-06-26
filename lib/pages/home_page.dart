@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:movie_buddy/models/movie_list_item.dart';
+import 'package:movie_buddy/bloc/bloc.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,23 +13,44 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final _moviesBloc = BlocProvider.of<MoviesBloc>(context);
+    _moviesBloc.dispatch(LoadUpcomingMovies());
     return Scaffold(
       appBar: AppBar(title: Text('UPCOMING MOVIES')),
-      body: _buildMoviesList([
-        MovieListItem('Dancer in the dark', '', 'drama', DateTime.now().subtract(Duration(days: 10))),
-        MovieListItem('I am mother', '', 'sci-fi', DateTime.now().subtract(Duration(days: 30))),
-        MovieListItem('Split', '', 'drama', DateTime.now().subtract(Duration(days: 1000))),
-        MovieListItem('Captain Marvel', '', 'drama', DateTime.now().subtract(Duration(days: 100))),
-        MovieListItem('Dancer in the dark', '', 'drama', DateTime.now().subtract(Duration(days: 10))),
-        MovieListItem('I am mother', '', 'sci-fi', DateTime.now().subtract(Duration(days: 30))),
-        MovieListItem('Split', '', 'drama', DateTime.now().subtract(Duration(days: 1000))),
-        MovieListItem('Captain Marvel', '', 'drama', DateTime.now().subtract(Duration(days: 100))),
-        MovieListItem('Dancer in the dark', '', 'drama', DateTime.now().subtract(Duration(days: 10))),
-        MovieListItem('I am mother', '', 'sci-fi', DateTime.now().subtract(Duration(days: 30))),
-        MovieListItem('Split', '', 'drama', DateTime.now().subtract(Duration(days: 1000))),
-        MovieListItem('Captain Marvel', '', 'drama', DateTime.now().subtract(Duration(days: 100))),
-      ]),
+      body: BlocBuilder(
+        bloc: _moviesBloc,
+        builder: (BuildContext context, MoviesState state) {
+          if (state is MoviesLoaded) {
+            final listItems =
+                state.movies.map<MovieListItem>((m) => MovieListItem(m.name, m.poster, m.genre, m.releaseDate));
+            return _buildMoviesList(listItems.toList());
+          } else if (state is IsLoading) {
+            return _buildLoadingState();
+          } else {
+            return Center(child: Text('No movies to display'));
+          }
+        },
+      ),
+    );
+  }
+
+  Center _buildLoadingState() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          CircularProgressIndicator(),
+          SizedBox(height: 30),
+          Text('Loading upcoming movies'),
+          SizedBox(height: 120),
+        ],
+      ),
     );
   }
 
@@ -64,4 +85,13 @@ class _HomePageState extends State<HomePage> {
             separatorBuilder: (BuildContext context, int index) => Divider(color: Colors.grey, height: 2),
           );
   }
+}
+
+class MovieListItem {
+  final String name;
+  final String poster;
+  final String genre;
+  final DateTime releaseDate;
+
+  MovieListItem(this.name, this.poster, this.genre, this.releaseDate);
 }
