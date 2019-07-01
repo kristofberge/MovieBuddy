@@ -1,6 +1,6 @@
 class Movie {
   final String name;
-  final String poster;
+  final Uri poster;
   final String genre;
   final DateTime releaseDate;
 

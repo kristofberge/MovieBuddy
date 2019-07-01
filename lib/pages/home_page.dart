@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
         builder: (BuildContext context, MoviesState state) {
           if (state is MoviesLoaded) {
             final listItems =
-                state.movies.map<MovieListItem>((m) => MovieListItem(m.name, m.poster, m.genre, m.releaseDate));
+                state.movies.map<MovieListItem>((m) => MovieListItem(m.name, m.poster.toString(), m.genre, m.releaseDate));
             return _buildMoviesList(listItems.toList());
           } else if (state is IsLoading) {
             return _buildLoadingState();
