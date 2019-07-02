@@ -1,4 +1,6 @@
-class Movie {
+import 'package:equatable/equatable.dart';
+
+class Movie extends Equatable{
   final String name;
   final Uri poster;
   final String genre;

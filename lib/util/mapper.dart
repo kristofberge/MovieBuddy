@@ -12,12 +12,12 @@ class Mapper {
             m['title'],
             _uriBuilder.getUriForImage(m['poster_path']),
             m['genre_ids'].toString(),
-            releaseDateStringToDateTime(m['release_date']),
+            _releaseDateStringToDateTime(m['release_date']),
           ),
     ).toList();
   }
 
-  DateTime releaseDateStringToDateTime(String releaseDate) {
+  DateTime _releaseDateStringToDateTime(String releaseDate) {
     final split = releaseDate.split('-');
     if (split.length == 3) {
       return DateTime(int.parse(split[0]), int.parse(split[1]), int.parse(split[2]));
