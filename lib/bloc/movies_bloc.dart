@@ -7,10 +7,10 @@ import 'package:movie_buddy/util/mapper.dart';
 import './bloc.dart';
 
 class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
-  final Mapper _mapper;
-  final MoviesRepository _repository;
+  final Mapper mapper;
+  final MoviesRepository repository;
 
-  MoviesBloc(this._repository, this._mapper);
+  MoviesBloc(this.repository, this.mapper);
 
   @override
   MoviesState get initialState => InitialMoviesState();
@@ -20,8 +20,8 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
     try {
       if (event is LoadUpcomingMovies) {
         yield IsLoading();
-        var mapList = await _repository.getUpcomingMovies();
-        List<Movie> movies = _mapper.mapToMoviesList(mapList);
+        var mapList = await repository.getUpcomingMovies();
+        List<Movie> movies = mapper.mapToMoviesList(mapList);
         yield MoviesLoaded(movies);
       }
     } on ApiException catch (e) {

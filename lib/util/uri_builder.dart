@@ -6,11 +6,11 @@ class UriBuilder {
 
   static const _apiKeyProp = 'api_key';
 
-  final String _apiKey;
+  final String apiKey;
 
-  UriBuilder(this._apiKey);
+  UriBuilder(this.apiKey);
 
-  Uri getUpcomingMoviesUrl() => Uri.https(_baseUrl, _upcomingMoviesPath, {_apiKeyProp: _apiKey});
+  Uri getUpcomingMoviesUrl() => Uri.https(_baseUrl, _upcomingMoviesPath, {_apiKeyProp: apiKey});
 
   Uri getUriForImage(String imageName) => Uri.https(_imageBaseUrl, '$_imageBaseUrl/$imageName');
 }

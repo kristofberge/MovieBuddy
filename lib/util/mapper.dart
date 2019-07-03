@@ -2,15 +2,15 @@ import 'package:movie_buddy/models/movie_model.dart';
 import 'package:movie_buddy/util/uri_builder.dart';
 
 class Mapper {
-  final UriBuilder _uriBuilder;
+  final UriBuilder uriBuilder;
 
-  Mapper(this._uriBuilder);
+  Mapper(this.uriBuilder);
 
   List<Movie> mapToMoviesList(List<Map<String, dynamic>> moviesMap) {
     return moviesMap.map(
       (m) => Movie(
             m['title'],
-            _uriBuilder.getUriForImage(m['poster_path']),
+            uriBuilder.getUriForImage(m['poster_path']),
             m['genre_ids'].toString(),
             _releaseDateStringToDateTime(m['release_date']),
           ),

@@ -4,10 +4,15 @@ import 'package:movie_buddy/pages/home_page.dart';
 import 'package:movie_buddy/util/mapper.dart';
 import 'package:movie_buddy/util/uri_builder.dart';
 import 'package:http/http.dart' as http;
+import 'package:kiwi/kiwi.dart' as kiwi;
 import 'bloc/bloc.dart';
 import 'repos/movies_repository.dart';
+import 'util/injector.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  Injector.injector.setup();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   static const String _apiKey = '1f54bd990f1cdfb230adb312546d765d';
@@ -20,13 +25,7 @@ class MyApp extends StatelessWidget {
       ),
       home: BlocProvider(
         child: HomePage(),
-        builder: (context) {
-          final uriBuilder = UriBuilder(_apiKey);
-          final client = http.Client();
-          final moviesRepo = TmdbMoviesRepository(client, uriBuilder);
-          final mapper = Mapper(uriBuilder);
-          return MoviesBloc(moviesRepo, mapper);
-        },
+        builder: (context) => kiwi.Container().resolve<MoviesBloc>(),
       ),
     );
   }
