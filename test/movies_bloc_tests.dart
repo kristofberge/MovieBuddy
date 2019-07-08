@@ -8,7 +8,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:movie_buddy/bloc/bloc.dart';
 import 'package:movie_buddy/bloc/movies_bloc.dart';
-import 'package:movie_buddy/exceptions/api_exception.dart';
 import 'package:movie_buddy/models/movie_model.dart';
 
 import 'package:movie_buddy/repos/movies_repository.dart';
