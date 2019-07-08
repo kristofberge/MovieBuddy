@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:movie_buddy/bloc/bloc.dart';
+import 'package:movie_buddy/widgets/movie_list_item_widget.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -57,35 +58,14 @@ class _HomePageState extends State<HomePage> {
   Widget _buildMoviesList(List<MovieListItem> movies) {
     return movies.isEmpty
         ? Center(child: Text('No movies to display'))
-        : ListView.separated(
+        : ListView.builder(
             itemCount: movies.length,
-            itemBuilder: (BuildContext context, int index) {
-              final item = movies[index];
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    child: Text(item.name, style: TextStyle(fontSize: 18)),
-                    padding: EdgeInsets.only(left: 20, top: 10, right: 10, bottom: 16),
-                  ),
-                  Padding(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(item.genre),
-                        SizedBox(width: 20),
-                        Text(DateFormat.yMMMd().format(item.releaseDate))
-                      ],
-                    ),
-                    padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
-                  )
-                ],
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) => Divider(color: Colors.grey, height: 2),
+            itemBuilder: (BuildContext context, int index) => MovieListItemWidget(movies[index]),
           );
   }
 }
+
+
 
 class MovieListItem {
   final String name;

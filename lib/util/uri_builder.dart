@@ -12,5 +12,5 @@ class UriBuilder {
 
   Uri getUpcomingMoviesUrl() => Uri.https(_baseUrl, _upcomingMoviesPath, {_apiKeyProp: apiKey});
 
-  Uri getUriForImage(String imageName) => Uri.https(_imageBaseUrl, '$_imageBaseUrl/$imageName');
+  Uri getUriForImage(String imageName) => Uri.https(_imageBaseUrl, '$_imagePath$imageName');
 }
