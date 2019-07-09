@@ -2,9 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:movie_buddy/models/movie_model.dart';
 import 'package:movie_buddy/util/mapper.dart';
-import 'package:movie_buddy/util/uri_builder.dart';
 
-class MockUriBuilder extends Mock implements UriBuilder {}
+import '../mocks.dart';
+
 
 void main() {
   MockUriBuilder uriBuilder;
