@@ -20,4 +20,9 @@ void main() {
     var imageUrl = uriBuilder.getUriForImage(_posterPath);
     expect(imageUrl.toString(), 'https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg');
   });
+
+  test('movie genres', () {
+    var genresUrl = uriBuilder.getGenresUri();
+    expect(genresUrl.toString(), 'https://api.themoviedb.org/3/genre/movie/list?api_key=apiKey');
+  });
 }

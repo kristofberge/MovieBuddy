@@ -14,7 +14,9 @@ class _$Injector extends Injector {
     container.registerFactory((c) => Mapper(c<UriBuilder>()));
     container.registerFactory<MoviesRepository, TmdbMoviesRepository>(
         (c) => TmdbMoviesRepository(c<Client>(), c<UriBuilder>()));
-    container.registerSingleton(
-        (c) => MoviesBloc(c<MoviesRepository>(), c<Mapper>()));
+    container.registerFactory<GenresRepository, TmdbGenresRepository>(
+        (c) => TmdbGenresRepository(c<Client>(), c<UriBuilder>()));
+    container.registerSingleton((c) =>
+        MoviesBloc(c<MoviesRepository>(), c<GenresService>(), c<Mapper>()));
   }
 }

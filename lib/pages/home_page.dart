@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-import 'package:movie_buddy/bloc/bloc.dart';
+import 'package:movie_buddy/blocs/bloc.dart';
 import 'package:movie_buddy/widgets/movie_list_item_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -29,9 +28,9 @@ class _HomePageState extends State<HomePage> {
         builder: (BuildContext context, MoviesState state) {
           if (state is MoviesLoaded) {
             final listItems =
-                state.movies.map<MovieListItem>((m) => MovieListItem(m.name, m.poster.toString(), m.genre, m.releaseDate));
+                state.movies.map<MovieListItem>((m) => MovieListItem(m.name, m.poster.toString(), m.genres.toString(), m.releaseDate));
             return _buildMoviesList(listItems.toList());
-          } else if (state is IsLoading) {
+          } else if (state is IsLoadingMovies) {
             return _buildLoadingState();
           } else {
             return Center(child: Text('No movies to display'));

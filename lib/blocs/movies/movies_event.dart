@@ -9,3 +9,7 @@ abstract class MoviesEvent extends Equatable {
 class LoadUpcomingMovies extends MoviesEvent {
   LoadUpcomingMovies() : super();
 }
+
+class LoadGenres extends MoviesEvent {
+  LoadGenres() : super();
+}

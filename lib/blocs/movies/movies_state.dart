@@ -9,7 +9,7 @@ abstract class MoviesState extends Equatable {
 
 class InitialMoviesState extends MoviesState {}
 
-class IsLoading extends MoviesState {}
+class IsLoadingMovies extends MoviesState {}
 
 class MoviesLoaded extends MoviesState {
   final List<Movie> movies;

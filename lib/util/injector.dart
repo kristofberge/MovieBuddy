@@ -1,6 +1,8 @@
 import 'package:kiwi/kiwi.dart';
-import 'package:movie_buddy/bloc/bloc.dart';
+import 'package:movie_buddy/blocs/movies/movies_bloc.dart';
+import 'package:movie_buddy/repos/genres_repository.dart';
 import 'package:movie_buddy/repos/movies_repository.dart';
+import 'package:movie_buddy/services/genres_service.dart';
 import 'package:movie_buddy/util/mapper.dart';
 import 'package:movie_buddy/util/uri_builder.dart';
 import 'package:http/http.dart';
@@ -14,6 +16,8 @@ abstract class Injector {
   @Register.factory(UriBuilder, resolvers: {String: 'apiKey'})
   @Register.factory(Mapper)
   @Register.factory(MoviesRepository, from: TmdbMoviesRepository)
+  @Register.factory(GenresRepository, from: TmdbGenresRepository)
+  @Register.factory(GenresService, from: TmdbGenresRepository)
   @Register.singleton(MoviesBloc)
   void configure();
 
